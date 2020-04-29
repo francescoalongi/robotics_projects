@@ -5,7 +5,7 @@
 #include <math.h>  
 #include <tf/transform_broadcaster.h>
 
-class ecef_to_enu 
+class ECEFtoENU
 {
 
     private: 
@@ -17,8 +17,8 @@ class ecef_to_enu
         tf::TransformBroadcaster br;
 
     public:
-        ecef_to_enu() {
-            ecef_pose_sub = n.subscribe("/ecef_topic",1000,&ecef_to_enu::ecef_to_enu_converter, this);
+        ECEFtoENU() {
+            ecef_pose_sub = n.subscribe("/ecef_topic",1000,&ECEFtoENU::ecef_to_enu_converter, this);
             enu_pose_pub = n.advertise<nav_msgs::Odometry>("/enu_topic", 1);
             enu_pose_pub_debug = n.advertise<nav_msgs::Odometry>("/enu_topic_debug", 1);
         }
@@ -145,8 +145,8 @@ class ecef_to_enu
 
 int main(int argc, char **argv){
   	
-	ros::init(argc, argv, "ecef_to_enu");
-  	ecef_to_enu e_to_e_instance;
+    ros::init(argc, argv, "ecef_to_enu");
+    ECEFtoENU ECEFtoENU;
     ros::spin();
     
     return 0;

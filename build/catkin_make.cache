@@ -1,2 +1,0 @@
-project1
--DCATKIN_DEVEL_PREFIX=/home/francesco/first_rob_proj/devel -DCMAKE_INSTALL_PREFIX=/home/francesco/first_rob_proj/install -G Unix Makefiles
