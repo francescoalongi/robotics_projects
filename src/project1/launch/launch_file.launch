@@ -6,13 +6,13 @@
 
  <node pkg="project1" type="ecef_to_enu" name="car_ecef_to_enu" output="screen">
   <param name="ecef_topic" value="/swiftnav/front/gps_pose"/>
-  <param name="enu_topic" value="/car_odometry"/>
+  <param name="enu_topic" value="/car/odometry"/>
   <param name="child_frame_id" value="car"/>
  </node>
  
  <node pkg="project1" type="ecef_to_enu" name="obs_ecef_to_enu" output="screen">
   <param name="ecef_topic" value="/swiftnav/obs/gps_pose"/>
-  <param name="enu_topic" value="/obs_odometry"/>
+  <param name="enu_topic" value="/obs/odometry"/>
   <param name="child_frame_id" value="obs"/>
  </node>
 
