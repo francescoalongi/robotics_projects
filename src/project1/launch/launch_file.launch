@@ -5,14 +5,16 @@
  <param name="altitude_init" value="224.573796"/>
 
  <node pkg="project1" type="ecef_to_enu" name="car_ecef_to_enu" output="screen">
-  <param name="ecef_topic" value="/swiftnav/front/gps_pose"/>
-  <param name="enu_topic" value="/car/odometry"/>
+  <remap from="ecef_topic" to="swiftnav/front/gps_pose"/>
+  <remap from="enu_topic" to="car/odometry"/>
+  <remap from="enu_topic_debug" to="car/odometry/debug"/>
   <param name="child_frame_id" value="car"/>
  </node>
  
  <node pkg="project1" type="ecef_to_enu" name="obs_ecef_to_enu" output="screen">
-  <param name="ecef_topic" value="/swiftnav/obs/gps_pose"/>
-  <param name="enu_topic" value="/obs/odometry"/>
+  <remap from="ecef_topic" to="swiftnav/obs/gps_pose"/>
+  <remap from="enu_topic" to="obs/odometry"/>
+  <remap from="enu_topic_debug" to="obs/odometry/debug"/>
   <param name="child_frame_id" value="obs"/>
  </node>
 
