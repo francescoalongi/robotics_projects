@@ -35,7 +35,6 @@ add_executable(synch_node src/synch_node.cpp)
 target_link_libraries(synch_node ${catkin_LIBRARIES})
 add_dependencies(synch_node ${catkin_EXPORTED_TARGETS})
 
-
 add_executable(distance_computer src/distance_computer.cpp)
 target_link_libraries(distance_computer ${catkin_LIBRARIES})
 add_dependencies(distance_computer ${catkin_EXPORTED_TARGETS})

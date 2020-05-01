@@ -18,4 +18,8 @@
   <param name="child_frame_id" value="obs"/>
  </node>
 
+ <node pkg="project1" type="distance_computer" name="distance_computer" output="screen"/>
+
+ <node pkg="project1" type="synch_node" name="synch_node" output="screen"/>
+
 </launch>

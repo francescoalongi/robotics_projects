@@ -96,6 +96,13 @@ class ECEFtoENU
                 xEast = -sin_phi * xd + cos_phi * yd;
                 yNorth = -cos_phi * sin_lambda * xd - sin_lambda * sin_phi * yd + cos_lambda * zd;
                 zUp = cos_lambda * cos_phi * xd + cos_lambda * sin_phi * yd + sin_lambda * zd;
+
+                tf::Transform transform;
+                transform.setOrigin( tf::Vector3(xEast, yNorth, zUp) );
+                tf::Quaternion q;
+                q.setRPY(0, 0, 0);
+                transform.setRotation(q);
+                br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", child_frame_id));
             }
 
             nav_msgs::Odometry odom_msg;
@@ -113,14 +120,6 @@ class ECEFtoENU
             odom_msg.child_frame_id = child_frame_id;
 
             enu_pose_pub.publish(odom_msg);
-
-            tf::Transform transform;
-            transform.setOrigin( tf::Vector3(xEast, yNorth, zUp) );
-            tf::Quaternion q;
-            q.setRPY(0, 0, 0);
-            transform.setRotation(q);
-            br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", child_frame_id));
-
 
             // DEBUG odom_msg
             nav_msgs::Odometry d_odom_msg;
