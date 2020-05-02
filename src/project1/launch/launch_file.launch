@@ -20,6 +20,11 @@
 
  <node pkg="project1" type="distance_computer" name="distance_computer" output="screen"/>
 
- <node pkg="project1" type="synch_node" name="synch_node" output="screen"/>
+ <node pkg="project1" type="synch_node" name="synch_node" output="screen">
+   <param name="safeThDefVal" value="5.0"/>
+   <param name="crashThDefVal" value="1.0"/>
+ </node>
+
+ <node pkg="rqt_reconfigure" type="rqt_reconfigure" name="threshold_cfg_node" output="screen"/>
 
 </launch>

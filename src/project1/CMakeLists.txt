@@ -6,7 +6,12 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp 
   tf
   std_msgs
-  message_generation
+  message_generation 
+  dynamic_reconfigure
+)
+
+generate_dynamic_reconfigure_options(
+  cfg/parameters.cfg
 )
 
 add_service_files(
@@ -34,11 +39,13 @@ target_link_libraries(ecef_to_enu ${catkin_LIBRARIES})
 add_executable(synch_node src/synch_node.cpp)
 target_link_libraries(synch_node ${catkin_LIBRARIES})
 add_dependencies(synch_node ${catkin_EXPORTED_TARGETS})
+add_dependencies(synch_node project1_generate_messages_cpp)
+add_dependencies(synch_node ${PROJECT_NAME}_gencfg)
 
 add_executable(distance_computer src/distance_computer.cpp)
 target_link_libraries(distance_computer ${catkin_LIBRARIES})
 add_dependencies(distance_computer ${catkin_EXPORTED_TARGETS})
 
-add_dependencies(synch_node project1_generate_messages_cpp)
+
 
 
