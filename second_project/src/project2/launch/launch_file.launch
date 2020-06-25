@@ -1,6 +1,0 @@
-<launch>
-	<node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="p2l" output="screen">
-		<remap from="cloud_in" to="os1_cloud_node/points"/>
-		<remap from="scan" to="laser_scan_2d"/>
-	</node>
-</launch>

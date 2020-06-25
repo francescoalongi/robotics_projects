@@ -1,0 +1,14 @@
+<launch>
+	<param name="use_sim_time" value="true"/>
+
+	<!-- Node used to transform the given PointCloud to LaserScan message -->
+	<node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="p2l" output="screen">
+		<remap from="cloud_in" to="os1_cloud_node/points"/>
+		<remap from="scan" to="laser_scan_2d"/>
+	</node>
+
+	
+
+	<!-- Setting TF tree properly - values taken from the project slides -->
+	<node pkg="tf" type="static_transform_publisher" name="opti_to_lidar" args="0 0 0 3.14 0 0 Robot_1/base_link os1_sensor 100"/>
+</launch>
