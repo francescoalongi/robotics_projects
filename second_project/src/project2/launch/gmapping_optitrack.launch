@@ -4,10 +4,17 @@
 	<!-- Node used to transform the given PointCloud to LaserScan message -->
 	<node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="p2l" output="screen">
 		<remap from="cloud_in" to="os1_cloud_node/points"/>
-		<remap from="scan" to="laser_scan_2d"/>
+		<remap from="scan" to="laserscan_2d"/>
 	</node>
 
+	<!-- Gmapping node -->
+	<!-- in order to save the map it is needed to run the bag file and once the bag file has ended, rosrun map_server map_saver -f map must be run -->
 	
+	<node pkg="gmapping" type="slam_gmapping" name="gmapping_optitrack" output="screen">
+		<remap from="scan" to="laserscan_2d"/>
+		<param name="base_frame" value="Robot_1/base_link"/>
+		<param name="odom_frame" value="world"/>
+	</node>
 
 	<!-- Setting TF tree properly - values taken from the project slides -->
 	<node pkg="tf" type="static_transform_publisher" name="opti_to_lidar" args="0 0 0 3.14 0 0 Robot_1/base_link os1_sensor 100"/>
