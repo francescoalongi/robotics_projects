@@ -1,0 +1,21 @@
+<launch>
+	<param name="use_sim_time" value="true"/>
+
+	<!-- Node used to transform the given PointCloud to LaserScan message -->
+	<node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="p2l" output="screen">
+		<remap from="cloud_in" to="os1_cloud_node/points"/>
+		<remap from="scan" to="laserscan_2d"/>
+	</node>
+
+	<!-- Gmapping node -->
+	<!-- in order to save the map it is needed to run the bag file and once the bag file has ended, rosrun map_server map_saver -f map must be run -->
+	
+	<node pkg="gmapping" type="slam_gmapping" name="gmapping_optitrack" output="screen">
+		<remap from="scan" to="laserscan_2d"/>
+		<param name="base_frame" value="camera_pose_frame"/>
+		<param name="odom_frame" value="camera_odom_frame"/>
+	</node>
+
+	<!-- Setting TF tree properly - values taken from the project slides -->
+	<node pkg="tf" type="static_transform_publisher" name="opti_to_lidar" args="-0.675 -0.008 +0.96 0 0 0 camera_pose_frame os1_sensor 100"/>
+</launch>
