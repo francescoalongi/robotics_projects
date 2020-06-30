@@ -1,0 +1,56 @@
+<launch>
+  <arg name="map_file"       default="$(find project2)/maps/map.yaml"/>
+  
+  <arg name="initial_pose_x" default="0.0"/>
+  <arg name="initial_pose_y" default="0.0"/>
+  <arg name="initial_pose_a" default="0.0"/>
+
+  <param name="/use_sim_time" value="true"/>
+
+ <!-- Node used to transform the given PointCloud to LaserScan message -->
+	<node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="p2l" output="screen">
+		<remap from="cloud_in" to="os1_cloud_node/points"/>
+		<remap from="scan" to="laserscan_2d"/>
+	</node>
+
+  <!--  ************** Navigation  ***************  -->
+   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find project2)/cfg/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find project2)/cfg/costmap_common_params.yaml" command="load" ns="local_costmap" />   
+    <rosparam file="$(find project2)/cfg/local_costmap_params.yaml" command="load" />   
+    <rosparam file="$(find project2)/cfg/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find project2)/cfg/dwa_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find project2)/cfg/move_base_params.yaml" command="load" /> 
+
+    <param name="base_global_planner" value="navfn/NavfnROS" />  <!--   planner  navfn/NavfnROS alternative  carrot_planner/CarrotPlanner -->
+    <param name="planner_frequency" value="1.0" />
+    <param name="planner_patience" value="5.0" /> <!-- How long the planner will wait in seconds in an attempt to find a valid plan before space-clearing operations are performed.  -->
+
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+    <param name="controller_frequency" value="5.0" />
+    <param name="controller_patience" value="5.0" /> <!-- How long the controller will wait in seconds without receiving a valid control before space-clearing operations are performed.  -->
+
+    <param name="clearing_rotation_allowed" value="true"/> 
+  </node>
+
+    <!-- map -->  
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)">
+    <param name="frame_id" value="map"/>
+  </node>
+
+  <!--  ****** amcl *****  -->
+  <include file="$(find project2)/launch/amcl.launch.xml">
+    <arg name="scan_topic" value="laserscan_2d"/>
+    <arg name="use_map_topic" value="true"/>
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+  </include>
+
+ <!-- visualization -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find project2)/rviz/robot_navigation.rviz"/>
+
+
+<!-- Setting TF tree properly - values taken from the project slides -->
+	<node pkg="tf" type="static_transform_publisher" name="opti_to_lidar" args="-0.675 -0.008 +0.96 0 0 0 camera_pose_frame os1_sensor 100"/>
+</launch>
