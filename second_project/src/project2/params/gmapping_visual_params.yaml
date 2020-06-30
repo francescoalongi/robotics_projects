@@ -1,0 +1,4 @@
+base_frame: "camera_pose_frame"
+odom_frame: "camera_odom_frame"
+maxUrange: 10.0
+maxRange: 20.0
