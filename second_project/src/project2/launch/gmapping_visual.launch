@@ -9,7 +9,7 @@
 	</node>
 
 	<!-- Gmapping node -->
-	<!-- in order to save the map it is needed to run the bag file and once the bag file has ended, rosrun map_server map_saver -f map must be run -->
+	<!-- in order to save the map it is needed to run the bag file and once the bag file has ended, rosrun map_server map_saver -f map_visual must be run -->
 	
 	<node pkg="gmapping" type="slam_gmapping" name="gmapping_visual" output="screen">
 		<remap from="scan" to="laserscan_2d"/>
@@ -17,5 +17,5 @@
 	</node>
 
 	<!-- Setting TF tree properly - values taken from the project slides -->
-	<node pkg="tf" type="static_transform_publisher" name="opti_to_lidar" args="-0.675 -0.008 +0.96 0 0 0 camera_pose_frame os1_sensor 100"/>
+	<node pkg="tf" type="static_transform_publisher" name="camera_to_lidar" args="-0.675 -0.008 +0.96 0 0 0 camera_pose_frame os1_sensor 100"/>
 </launch>

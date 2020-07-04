@@ -8,7 +8,7 @@
 	</node>
 
 	<!-- Gmapping node -->
-	<!-- in order to save the map it is needed to run the bag file and once the bag file has ended, rosrun map_server map_saver -f map must be run -->
+	<!-- in order to save the map it is needed to run the bag file and once the bag file has ended, rosrun map_server map_saver -f map_optitrack must be run -->
 	
 	<node pkg="gmapping" type="slam_gmapping" name="gmapping_optitrack" output="screen">
 		<remap from="scan" to="laserscan_2d"/>
