@@ -10,7 +10,6 @@
  <!-- Node used to transform the given PointCloud to LaserScan message -->
 	<node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="p2l" output="screen">
 		<remap from="cloud_in" to="os1_cloud_node/points"/>
-		<remap from="scan" to="laserscan_2d"/>
 	</node>
 
 
