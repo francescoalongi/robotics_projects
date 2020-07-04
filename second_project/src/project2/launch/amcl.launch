@@ -13,16 +13,6 @@
 		<remap from="scan" to="laserscan_2d"/>
 	</node>
 
-  <!--  ************** Navigation  ***************  -->
-   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <rosparam file="$(find project2)/cfg/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find project2)/cfg/costmap_common_params.yaml" command="load" ns="local_costmap" />   
-    <rosparam file="$(find project2)/cfg/local_costmap_params.yaml" command="load" />   
-    <rosparam file="$(find project2)/cfg/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find project2)/cfg/dwa_local_planner_params.yaml" command="load" />
-    <rosparam file="$(find project2)/cfg/move_base_params.yaml" command="load" /> 
-
-  </node>
 
     <!-- map -->  
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)">
@@ -31,15 +21,13 @@
 
   <!--  ****** amcl *****  -->
   <include file="$(find project2)/launch/amcl.launch.xml">
-    <arg name="scan_topic" value="laserscan_2d"/>
-    <arg name="use_map_topic" value="true"/>
     <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
     <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
     <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
   </include>
 
  <!-- visualization -->
-  <node name="rviz" pkg="rviz" type="rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find project2)/rviz/amcl.rviz"/>
 
 
 <!-- Setting TF tree properly - values taken from the project slides -->
