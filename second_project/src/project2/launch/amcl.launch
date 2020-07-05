@@ -13,7 +13,7 @@
 	</node>
 
 
-    <!-- map -->  
+  <!-- map -->  
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)">
     <param name="frame_id" value="map"/>
   </node>
@@ -31,4 +31,5 @@
 
 <!-- Setting TF tree properly - values taken from the project slides -->
 	<node pkg="tf" type="static_transform_publisher" name="camera_to_lidar" args="-0.675 -0.008 +0.96 0 0 0 camera_pose_frame os1_sensor 100"/>
+	
 </launch>
